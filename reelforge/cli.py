@@ -15,7 +15,7 @@ async def test_llm():
     await app.initialize()
     
     # Test prompt
-    prompt = "Explain the book 'Atomic Habits' by James Clear in 3 sentences."
+    prompt = "Explain the concept of atomic habits in 3 sentences."
     
     logger.info(f"\n📝 Test Prompt: {prompt}\n")
     

@@ -69,19 +69,19 @@ class FinalImagePromptService:
     Usage:
         # With preset style
         final = await reelforge.generate_final_image_prompt(
-            prompt="A beautiful book on a desk",
+            prompt="A peaceful mountain landscape",
             style_preset=StylePreset.FUTURISTIC
         )
         
         # With custom style (any language)
         final = await reelforge.generate_final_image_prompt(
-            prompt="A book",
+            prompt="A coffee cup on table",
             custom_style_description="温馨的咖啡馆，暖色调"
         )
         
         # Only prompt (no style)
         final = await reelforge.generate_final_image_prompt(
-            prompt="A book on a wooden desk"
+            prompt="A sunset over the ocean"
         )
     """
     
@@ -114,7 +114,7 @@ class FinalImagePromptService:
         - Join with comma: "{style_part}, {prompt}"
         
         Args:
-            prompt: Base prompt (optional, e.g., "A beautiful book on a desk")
+            prompt: Base prompt (optional, e.g., "A peaceful landscape")
             style_preset: Preset style from StylePreset enum (optional)
             custom_style_description: Custom description in any language (optional)
                                      Overrides style_preset if provided
@@ -125,21 +125,21 @@ class FinalImagePromptService:
         Examples:
             # With preset style (IDE autocomplete!)
             final = await service(
-                prompt="A book on a desk",
+                prompt="A mountain landscape",
                 style_preset=StylePreset.FUTURISTIC
             )
-            # Returns: "Futuristic sci-fi style..., A book on a desk"
+            # Returns: "Futuristic sci-fi style..., A mountain landscape"
             
             # With custom style (any language)
             final = await service(
-                prompt="A book",
+                prompt="A coffee cup",
                 custom_style_description="温馨的咖啡馆，暖色调"
             )
-            # Returns: "Cozy coffee shop interior..., A book"
+            # Returns: "Cozy coffee shop interior..., A coffee cup"
             
             # Only prompt
-            final = await service(prompt="A book on desk")
-            # Returns: "A book on desk"
+            final = await service(prompt="A sunset scene")
+            # Returns: "A sunset scene"
             
             # Only style
             final = await service(style_preset=StylePreset.MINIMAL)

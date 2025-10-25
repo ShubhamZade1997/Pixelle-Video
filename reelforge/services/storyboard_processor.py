@@ -217,17 +217,17 @@ class StoryboardProcessorService:
                     f"Available templates: classic, modern, minimal"
                 )
         
-        # Get storyboard for book info
+        # Get storyboard for content metadata
         storyboard = getattr(self.core, '_current_storyboard', None)
-        book_info = storyboard.book_info if storyboard else None
+        content_metadata = storyboard.content_metadata if storyboard else None
         
         # Build ext data
         ext = {}
-        if book_info:
-            ext["book_title"] = book_info.title or ""
-            ext["book_author"] = book_info.author or ""
-            ext["book_subtitle"] = book_info.subtitle or ""
-            ext["book_genre"] = book_info.genre or ""
+        if content_metadata:
+            ext["content_title"] = content_metadata.title or ""
+            ext["content_author"] = content_metadata.author or ""
+            ext["content_subtitle"] = content_metadata.subtitle or ""
+            ext["content_genre"] = content_metadata.genre or ""
         
         # Generate frame using HTML
         generator = HTMLFrameGenerator(str(template_path))

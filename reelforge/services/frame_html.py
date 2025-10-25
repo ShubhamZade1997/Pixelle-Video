@@ -24,7 +24,7 @@ class HTMLFrameGenerator:
         ...     topic="Why reading matters",
         ...     text="Reading builds new neural pathways...",
         ...     image="/path/to/image.png",
-        ...     ext={"book_title": "Atomic Habits", "book_author": "James Clear"}
+        ...     ext={"content_title": "Sample Title", "content_author": "Author Name"}
         ... )
     """
     
@@ -74,7 +74,7 @@ class HTMLFrameGenerator:
             topic: Video topic/theme
             text: Narration text for this frame
             image: Path to AI-generated image
-            ext: Additional data (book_title, book_author, etc.)
+            ext: Additional data (content_title, content_author, etc.)
             width: Frame width in pixels
             height: Frame height in pixels
         

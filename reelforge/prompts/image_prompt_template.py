@@ -16,12 +16,6 @@ IMAGE_STYLE_PRESETS = {
         "use_case": "通用场景，简单直观"
     },
     
-    "book": {
-        "name": "书籍阅读场景",
-        "description": "warm book-related scenes, reading atmosphere, books and bookshelves, soft lighting, cozy learning environment, professional photography style",
-        "use_case": "书单号视频（推荐）"
-    },
-    
     "minimal": {
         "name": "极简抽象",
         "description": "minimalist abstract art, geometric shapes, clean composition, modern design, soft pastel colors",
@@ -122,17 +116,17 @@ def build_image_prompt_prompt(
         narrations: List of narrations
         min_words: Minimum word count
         max_words: Maximum word count
-        image_style_preset: Preset style name (e.g., "book", "stick_figure", "minimal", "concept")
+        image_style_preset: Preset style name (e.g., "minimal", "stick_figure", "concept")
                            Available presets: see IMAGE_STYLE_PRESETS
         image_style_description: Custom style description (overrides preset if provided)
-                                Example: "warm book scenes, soft lighting, professional photography"
+                                Example: "warm scenes, soft lighting, professional photography"
     
     Returns:
         Formatted prompt
     
     Examples:
         # Use preset style
-        >>> build_image_prompt_prompt(narrations, 50, 100, image_style_preset="book")
+        >>> build_image_prompt_prompt(narrations, 50, 100, image_style_preset="minimal")
         
         # Use custom style
         >>> build_image_prompt_prompt(

@@ -12,7 +12,7 @@ from reelforge.config import load_config
 from reelforge.core.discovery import CapabilityRegistry
 from reelforge.core.mcp_server import reelforge_mcp
 from reelforge.core.config_manager import ConfigManager
-from reelforge.services import LLMService, TTSService, ImageService, BookFetcherService
+from reelforge.services import LLMService, TTSService, ImageService
 
 
 class ReelForgeCore:
@@ -31,7 +31,6 @@ class ReelForgeCore:
         # Use capabilities directly
         answer = await reelforge.llm("Explain atomic habits")
         audio = await reelforge.tts("Hello world")
-        book = await reelforge.book_fetcher("原则")
         
         # Check active capabilities
         print(f"Using LLM: {reelforge.llm.active}")
@@ -43,7 +42,7 @@ class ReelForgeCore:
           ├── config_manager (config injection + MCP calls)
           ├── llm (LLM service)
           ├── tts (TTS service)
-          └── book_fetcher (Book fetcher service)
+          └── image (Image service)
     """
     
     def __init__(self, config_path: str = "config.yaml"):
@@ -62,7 +61,6 @@ class ReelForgeCore:
         self.llm: Optional[LLMService] = None
         self.tts: Optional[TTSService] = None
         self.image: Optional[ImageService] = None
-        self.book_fetcher: Optional[BookFetcherService] = None
         
         # Content generation services
         self.narration_generator = None
@@ -73,8 +71,8 @@ class ReelForgeCore:
         self.frame_composer = None
         self.storyboard_processor = None
         
-        # Book video service (named as verb for direct calling)
-        self.generate_book_video = None
+        # Video generation service (named as verb for direct calling)
+        self.generate_video = None
     
     async def initialize(self):
         """
@@ -106,8 +104,6 @@ class ReelForgeCore:
         self.llm = LLMService(self.config_manager)
         self.tts = TTSService(self.config_manager)
         self.image = ImageService(self.config_manager)
-        self.book_fetcher = BookFetcherService(self.config_manager)
-        self.book_fetcher.set_core(self)  # Set core reference for LLM fallback
         
         # 5. Initialize content generation services
         from reelforge.services.narration_generator import NarrationGeneratorService
@@ -125,10 +121,10 @@ class ReelForgeCore:
         self.frame_composer = FrameComposerService()
         self.storyboard_processor = StoryboardProcessorService(self)
         
-        # 7. Initialize book video service
-        from reelforge.services.book_video import BookVideoService
+        # 7. Initialize video generation service
+        from reelforge.services.video_generator import VideoGeneratorService
         
-        self.generate_book_video = BookVideoService(self)
+        self.generate_video = VideoGeneratorService(self)
         
         self._initialized = True
         logger.info("✅ ReelForge initialized successfully\n")
@@ -139,7 +135,6 @@ class ReelForgeCore:
         from reelforge.capabilities import llm  # noqa: F401
         from reelforge.capabilities import tts  # noqa: F401
         from reelforge.capabilities import image  # noqa: F401
-        from reelforge.capabilities import book_fetcher  # noqa: F401
     
     @property
     def project_name(self) -> str:

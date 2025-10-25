@@ -68,19 +68,6 @@ image:
     comfyui_url: http://127.0.0.1:8188  # Local ComfyUI server
     # runninghub_api_key: ""             # Optional: RunningHub cloud API key
 
-# ==================== Book Fetcher Configuration ====================
-book_fetcher:
-  default: google
-  
-  # Google Books API (free, no key needed, works for English/Chinese books)
-  # Will automatically fallback to LLM if API fails or book not found
-  google:
-    # No configuration needed
-  
-  # Douban (requires custom implementation)
-  douban:
-    # Implement your own logic in reelforge/capabilities/book_fetcher.py
-
 # ==================== External MCP Servers (Optional) ====================
 mcp_servers: []
   # Example: Add custom MCP server

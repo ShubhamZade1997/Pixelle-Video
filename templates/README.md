@@ -18,7 +18,7 @@ from reelforge.service import reelforge
 await reelforge.initialize()
 
 # Use preset template
-result = await reelforge.generate_book_video(
+result = await reelforge.generate_video(
     topic="为什么阅读改变命运",
     frame_template="classic"  # or "modern", "minimal"
 )
@@ -76,7 +76,7 @@ templates/my-cyberpunk.html
 #### Step 5: Use Template
 
 ```python
-await reelforge.generate_book_video(
+await reelforge.generate_video(
     topic="...",
     frame_template="my-cyberpunk"  # Use your template
 )

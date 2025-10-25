@@ -57,9 +57,8 @@ async def image_comfykit(
     Example:
         # Local ComfyUI (default)
         image_url = await image_comfykit(
-            workflow="workflows/book_cover.json",
-            title="Atomic Habits",
-            author="James Clear"
+            workflow="workflows/t2i_by_local_flux.json",
+            prompt="A peaceful mountain landscape"
         )
         
         # RunningHub cloud

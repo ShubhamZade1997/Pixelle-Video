@@ -17,9 +17,8 @@ class ImageService(BaseService):
     Usage:
         # Direct call with workflow path
         image_path = await reelforge.image(
-            workflow="workflows/book_cover.json",
-            title="Atomic Habits",
-            author="James Clear"
+            workflow="workflows/t2i_by_local_flux.json",
+            prompt="A peaceful mountain landscape"
         )
         # Returns: "http://comfyui.local/view?filename=..."
         
@@ -52,10 +51,10 @@ class ImageService(BaseService):
             Image URL or path (str)
         
         Example:
-            # Generate book cover
+            # Generate image
             image_url = await reelforge.image(
-                workflow="workflows/book_cover.json",
-                title="Atomic Habits",
+                workflow="workflows/t2i_by_local_flux.json",
+                prompt="A beautiful landscape",
                 author="James Clear",
                 genre="Self-Help"
             )

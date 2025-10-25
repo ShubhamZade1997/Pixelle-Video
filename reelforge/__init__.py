@@ -1,5 +1,5 @@
 """
-ReelForge - AI-powered book video generator with pluggable capabilities
+ReelForge - AI-powered video generator with pluggable capabilities
 
 Convention-based capability system using FastMCP and LiteLLM.
 
@@ -12,7 +12,9 @@ Usage:
     # Use capabilities
     answer = await reelforge.llm("Explain atomic habits")
     audio = await reelforge.tts("Hello world")
-    book = await reelforge.book_fetcher("原则")
+    
+    # Generate video
+    result = await reelforge.generate_video(topic="AI in 2024")
 """
 
 from reelforge.service import ReelForgeCore, reelforge

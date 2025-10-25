@@ -68,7 +68,7 @@ class LLMService(BaseService):
             
             # Override with custom parameters
             answer = await reelforge.llm(
-                "Summarize the book 'Atomic Habits' in 3 sentences",
+                "Explain the concept of atomic habits in 3 sentences",
                 api_key="sk-custom-key",
                 base_url="https://api.custom.com/v1",
                 model="custom-model",

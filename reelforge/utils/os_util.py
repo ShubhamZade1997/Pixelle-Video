@@ -97,8 +97,8 @@ def get_data_path(*paths: str) -> str:
         Absolute path to data directory or file
     
     Example:
-        get_data_path("books", "book.json")
-        # Returns: "/path/to/project/data/books/book.json"
+        get_data_path("videos", "output.mp4")
+        # Returns: "/path/to/project/data/videos/output.mp4"
     """
     data_path = get_root_path("data")
     if paths:

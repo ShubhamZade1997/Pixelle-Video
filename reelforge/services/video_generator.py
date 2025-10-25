@@ -1,12 +1,12 @@
 """
-Book Video Service
+Video Generator Service
 
-End-to-end service for generating book short videos.
+End-to-end service for generating short videos from content.
 """
 
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Callable
+from typing import Optional, Callable, Literal
 
 from loguru import logger
 
@@ -15,14 +15,14 @@ from reelforge.models.storyboard import (
     Storyboard,
     StoryboardFrame,
     StoryboardConfig,
-    BookInfo,
+    ContentMetadata,
     VideoGenerationResult
 )
 
 
-class BookVideoService:
+class VideoGeneratorService:
     """
-    Book video generation service
+    Video generation service
     
     Orchestrates the complete pipeline:
     1. Generate narrations (LLM)
@@ -34,7 +34,7 @@ class BookVideoService:
     
     def __init__(self, reelforge_core):
         """
-        Initialize book video service
+        Initialize video generator service
         
         Args:
             reelforge_core: ReelForgeCore instance
@@ -44,8 +44,6 @@ class BookVideoService:
     async def __call__(
         self,
         # === Content Source (Choose ONE, mutually exclusive) ===
-        book_name: Optional[str] = None,
-        author: Optional[str] = None,
         topic: Optional[str] = None,
         content: Optional[str] = None,
         
@@ -53,7 +51,7 @@ class BookVideoService:
         title: Optional[str] = None,
         
         # === Basic Config ===
-        n_frames: int = 3,
+        n_frames: int = 5,
         voice_id: str = "zh-CN-YunjianNeural",
         output_path: Optional[str] = None,
         
@@ -74,34 +72,34 @@ class BookVideoService:
         video_height: int = 1920,
         video_fps: int = 30,
         
+        # === Frame Template ===
+        frame_template: Optional[str] = None,
+        
         # === BGM Parameters ===
         bgm_path: Optional[str] = None,
         bgm_volume: float = 0.2,
-        bgm_mode: str = "loop",
+        bgm_mode: Literal["once", "loop"] = "loop",
         
         # === Advanced Options ===
-        book_info: Optional[BookInfo] = None,
+        content_metadata: Optional[ContentMetadata] = None,
         progress_callback: Optional[Callable[[ProgressEvent], None]] = None,
     ) -> VideoGenerationResult:
         """
-        Generate book short video from different content sources
+        Generate short video from different content sources
         
         Args:
-            book_name: Book name (e.g., "从零到一")
-            author: Book author (optional, pairs with book_name)
             topic: Topic/theme (e.g., "如何提高学习效率")
             content: User-provided content (any length)
             
-            Note: Must provide exactly ONE of: book_name, topic, or content
+            Note: Must provide exactly ONE of: topic or content
             
             title: Video title (optional)
                    - If provided, use it as the video title
                    - If not provided, auto-generate based on source:
-                     * book_name → use book title
                      * topic → use topic text
                      * content → LLM extracts title from content
             
-            n_frames: Number of storyboard frames (default 3)
+            n_frames: Number of storyboard frames (default 5)
             voice_id: TTS voice ID (default "zh-CN-YunjianNeural")
             output_path: Output video path (auto-generated if None)
             
@@ -112,70 +110,63 @@ class BookVideoService:
             
             image_width: Generated image width (default 1024)
             image_height: Generated image height (default 1024)
-            image_style_preset: Preset style name (e.g., "book", "stick_figure", "minimal", "concept")
+            image_style_preset: Preset style name (e.g., "minimal", "concept", "cinematic")
             image_style_description: Custom style description (overrides preset)
             
             video_width: Final video width (default 1080)
             video_height: Final video height (default 1920)
             video_fps: Video frame rate (default 30)
             
+            frame_template: HTML template name or path (None = use PIL)
+                           e.g., "classic", "modern", "minimal", or custom path
+            
             bgm_path: BGM path ("default", "happy", custom path, or None)
             bgm_volume: BGM volume 0.0-1.0 (default 0.2)
             bgm_mode: BGM mode "once" or "loop" (default "loop")
             
-            book_info: Book metadata (optional)
+            content_metadata: Content metadata (optional, for display)
             progress_callback: Progress callback function(message, progress)
         
         Returns:
             VideoGenerationResult with video path and metadata
         
         Examples:
-            # Generate from book name
-            >>> result = await reelforge.generate_book_video(
-            ...     book_name="从零到一",
-            ...     author="彼得·蒂尔",
-            ...     n_frames=3,
-            ...     image_style_preset="book"
-            ... )
-            
             # Generate from topic
-            >>> result = await reelforge.generate_book_video(
+            >>> result = await reelforge.generate_video(
             ...     topic="如何在信息爆炸时代保持深度思考",
-            ...     n_frames=3,
+            ...     n_frames=5,
             ...     bgm_path="default"
             ... )
             
             # Generate from user content with auto-generated title
-            >>> result = await reelforge.generate_book_video(
+            >>> result = await reelforge.generate_video(
             ...     content="昨天我读了一本书，讲的是...",
             ...     n_frames=3
             ... )
             
             # Generate from user content with custom title
-            >>> result = await reelforge.generate_book_video(
+            >>> result = await reelforge.generate_video(
             ...     content="买房子，第一应该看的是楼盘的整体环境...",
             ...     title="买房风水指南",
-            ...     n_frames=3
+            ...     n_frames=5
             ... )
             >>> print(result.video_path)
         """
         # ========== Step 0: Validate parameters (mutually exclusive) ==========
-        sources = [book_name, topic, content]
+        sources = [topic, content]
         source_count = sum(x is not None for x in sources)
         
         if source_count == 0:
             raise ValueError(
-                "Must provide exactly ONE of: book_name, topic, or content"
+                "Must provide exactly ONE of: topic or content"
             )
         elif source_count > 1:
             raise ValueError(
-                "Cannot provide multiple sources. Choose ONE of: book_name, topic, or content"
+                "Cannot provide multiple sources. Choose ONE of: topic or content"
             )
         
         # Determine source type
-        if book_name:
-            source_type = "book"
-        elif topic:
+        if topic:
             source_type = "topic"
         else:  # content
             source_type = "content"
@@ -184,18 +175,15 @@ class BookVideoService:
         if title:
             # User specified title, use it directly
             final_title = title
-            logger.info(f"🚀 Starting book video generation from {source_type} with title: '{title}'")
+            logger.info(f"🚀 Starting video generation from {source_type} with title: '{title}'")
         else:
             # Auto-generate title based on source
-            if source_type == "book":
-                final_title = f"{book_name}" + (f" - {author}" if author else "")
-                logger.info(f"🚀 Starting book video generation from book: '{final_title}'")
-            elif source_type == "topic":
+            if source_type == "topic":
                 final_title = topic
-                logger.info(f"🚀 Starting book video generation from topic: '{final_title}'")
+                logger.info(f"🚀 Starting video generation from topic: '{final_title}'")
             else:  # content
                 # Will generate title from content using LLM
-                logger.info(f"🚀 Starting book video generation from content ({len(content)} chars)")
+                logger.info(f"🚀 Starting video generation from content ({len(content)} chars)")
                 final_title = None  # Will be generated later
         
         # Generate title from content if needed (before creating output path)
@@ -226,50 +214,28 @@ class BookVideoService:
             video_fps=video_fps,
             voice_id=voice_id,
             image_width=image_width,
-            image_height=image_height
+            image_height=image_height,
+            frame_template=frame_template
         )
         
         # Create storyboard
         storyboard = Storyboard(
             topic=final_title,  # Use final_title as video title
             config=config,
-            book_info=book_info,
+            content_metadata=content_metadata,
             created_at=datetime.now()
         )
         
+        # Store storyboard in core for access in storyboard processor
+        self.core._current_storyboard = storyboard
+        
         try:
-            # ========== Step 1: Route based on source type ==========
-            
-            # Step 1a: Fetch book info if needed
-            if source_type == "book":
-                self._report_progress(progress_callback, "fetching_book_info", 0.03)
-                book_dict = await self.core.book_fetcher(
-                    book_name=book_name,
-                    author=author
-                )
-                
-                # Convert dict to BookInfo object
-                fetched_book_info = BookInfo(
-                    title=book_dict.get("title", book_name),
-                    author=book_dict.get("author", author or "Unknown"),
-                    summary=book_dict.get("summary", ""),
-                    genre=book_dict.get("genre", ""),
-                    publication_year=book_dict.get("publication_year", ""),
-                    cover_url=book_dict.get("cover_url")
-                )
-                logger.info(f"✅ Fetched book info: {fetched_book_info.title}")
-                
-                # Update storyboard with fetched book info
-                storyboard.book_info = fetched_book_info
-            else:
-                fetched_book_info = None
-            
-            # Step 1b: Generate narrations
+            # ========== Step 1: Generate narrations ==========
             self._report_progress(progress_callback, "generating_narrations", 0.05)
             narrations = await self.core.narration_generator.generate_narrations(
                 config=config,
                 source_type=source_type,
-                book_info=fetched_book_info if source_type == "book" else None,
+                content_metadata=None,  # No metadata needed for topic/content
                 topic=topic if source_type == "topic" else None,
                 content=content if source_type == "content" else None
             )

@@ -1,7 +1,7 @@
 """
 ReelForge Web UI
 
-A simple web interface for generating book short videos.
+A simple web interface for generating short videos from content.
 """
 
 import asyncio
@@ -19,8 +19,8 @@ from reelforge.models.progress import ProgressEvent
 
 # Setup page config (must be first)
 st.set_page_config(
-    page_title="ReelForge - AI Book Video Generator",
-    page_icon="📚",
+    page_title="ReelForge - AI Video Generator",
+    page_icon="🎬",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -105,7 +105,7 @@ def generate_style_preview_cached(
     
     # Generate final prompt using the new service
     final_prompt = run_async(reelforge.generate_final_image_prompt(
-        prompt="A beautiful book on a desk",
+        prompt="A peaceful mountain landscape",
         style_preset=style_preset,
         custom_style_description=custom_style_description
     ))
@@ -146,8 +146,6 @@ def get_reelforge():
 
 def init_session_state():
     """Initialize session state variables"""
-    if "book_info" not in st.session_state:
-        st.session_state.book_info = None
     if "language" not in st.session_state:
         st.session_state.language = "zh_CN"
 
@@ -163,7 +161,7 @@ def render_advanced_settings(config_manager: ConfigManager):
     
     # Expand if not configured, collapse if configured
     with st.expander(tr("settings.title"), expanded=not is_configured):
-        # 2-column layout: LLM | Image+Book
+        # 2-column layout: LLM | Image
         llm_col, image_col = st.columns(2)
         
         # ====================================================================
@@ -396,7 +394,7 @@ def main():
     left_col, middle_col, right_col = st.columns([1, 1, 1])
     
     # ========================================================================
-    # Left Column: Book & Content
+    # Left Column: Content Input
     # ========================================================================
     with left_col:
         with st.container(border=True):
@@ -405,57 +403,16 @@ def main():
             # Input mode selection
             input_mode = st.radio(
                 "Input Mode",
-                [tr("input_mode.book"), tr("input_mode.topic"), tr("input_mode.custom")],
+                [tr("input_mode.topic"), tr("input_mode.custom")],
                 horizontal=True,
                 label_visibility="collapsed"
             )
             
-            book_name = None
             topic = None
             content = None
             title = None
             
-            if input_mode == tr("input_mode.book"):
-                book_name = st.text_input(
-                    tr("input.book_name"),
-                    placeholder=tr("input.book_name_placeholder"),
-                    help=tr("input.book_name_help")
-                )
-                
-                # Book search button
-                if st.button(tr("book.search"), use_container_width=True):
-                    if book_name:
-                        with st.spinner(tr("book.searching")):
-                            try:
-                                # Search book using BookFetcherService
-                                book_info = run_async(reelforge.book_fetcher(book_name))
-                                st.session_state.book_info = book_info
-                                st.success(tr("book.found"))
-                            except Exception as e:
-                                st.error(tr("book.not_found", error=str(e)))
-                    else:
-                        st.warning(tr("book.name_required"))
-                
-                # Display book info if available
-                if st.session_state.book_info:
-                    st.markdown("---")
-                    book_info = st.session_state.book_info
-                    
-                    # Book cover (if available)
-                    if hasattr(book_info, 'cover_url') and book_info.cover_url:
-                        st.image(book_info.cover_url, width=200)
-                    
-                    # Book details
-                    st.markdown(f"**{tr('book.title')}:** {book_info.title}")
-                    if hasattr(book_info, 'author'):
-                        st.markdown(f"**{tr('book.author')}:** {book_info.author}")
-                    if hasattr(book_info, 'rating'):
-                        st.markdown(f"**{tr('book.rating')}:** ⭐ {book_info.rating}")
-                    if hasattr(book_info, 'summary'):
-                        with st.expander(tr("book.summary")):
-                            st.write(book_info.summary)
-            
-            elif input_mode == tr("input_mode.topic"):
+            if input_mode == tr("input_mode.topic"):
                 topic = st.text_area(
                     tr("input.topic"),
                     placeholder=tr("input.topic_placeholder"),
@@ -688,7 +645,7 @@ def main():
                     st.stop()
                 
                 # Validate input
-                if not book_name and not topic and not content:
+                if not topic and not content:
                     st.error(tr("error.input_required"))
                     st.stop()
                 
@@ -737,8 +694,7 @@ def main():
                         # Preset mode: pass preset name
                         style_preset_param = style_preset
                     
-                    result = run_async(reelforge.generate_book_video(
-                        book_name=book_name if book_name else None,
+                    result = run_async(reelforge.generate_video(
                         topic=topic if topic else None,
                         content=content if content else None,
                         title=title if title else None,

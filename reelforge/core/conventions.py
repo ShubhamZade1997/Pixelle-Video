@@ -6,7 +6,7 @@ All capability tools MUST follow this naming pattern:
     {type}_{id}
 
 Where:
-    - type: MUST be one of the known capability types (llm, tts, book_fetcher, etc.)
+    - type: MUST be one of the known capability types (llm, tts, image, etc.)
     - id: Unique identifier for this specific capability
     
 Parsing strategy (Fail Fast):
@@ -18,7 +18,6 @@ Examples:
     ✅ llm_call              → type: llm, id: call
     ✅ tts_edge              → type: tts, id: edge
     ✅ image_comfykit        → type: image, id: comfykit
-    ✅ book_fetcher_google   → type: book_fetcher, id: google
     
     ❌ call_llm              → Wrong order
     ❌ llm-call              → Use underscore, not dash
@@ -34,7 +33,6 @@ CAPABILITY_TYPES = {
     "llm",
     "tts",
     "image",
-    "book_fetcher",
 }
 
 
@@ -46,7 +44,7 @@ def parse_tool_name(tool_name: str) -> Optional[tuple[str, str]]:
     Returns None for unknown types to fail early and expose configuration errors.
     
     Args:
-        tool_name: Tool name following convention (e.g., "llm_qwen", "book_fetcher_douban")
+        tool_name: Tool name following convention (e.g., "llm_qwen", "tts_edge")
     
     Returns:
         (type, id) tuple if matches known type, None otherwise
@@ -55,8 +53,8 @@ def parse_tool_name(tool_name: str) -> Optional[tuple[str, str]]:
         >>> parse_tool_name("llm_call")
         ('llm', 'call')
         
-        >>> parse_tool_name("book_fetcher_google")
-        ('book_fetcher', 'google')
+        >>> parse_tool_name("tts_edge")
+        ('tts', 'edge')
         
         >>> parse_tool_name("unknown_type_id")
         None  # Fail fast - unknown type

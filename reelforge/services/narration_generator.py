@@ -1,10 +1,9 @@
 """
 Narration generation service
 
-Supports three content sources:
-1. Book: Generate book review narrations from book information
-2. Topic: Generate narrations from a topic/theme
-3. Content: Extract/refine narrations from user-provided content
+Supports two content sources:
+1. Topic: Generate narrations from a topic/theme
+2. Content: Extract/refine narrations from user-provided content
 """
 
 import json
@@ -13,9 +12,8 @@ from typing import List, Optional, Literal
 
 from loguru import logger
 
-from reelforge.models.storyboard import StoryboardConfig, BookInfo
+from reelforge.models.storyboard import StoryboardConfig, ContentMetadata
 from reelforge.prompts.narration_template import (
-    build_book_narration_prompt,
     build_topic_narration_prompt,
     build_content_narration_prompt,
     build_narration_prompt  # Keep for backward compatibility
@@ -37,8 +35,8 @@ class NarrationGeneratorService:
     async def generate_narrations(
         self,
         config: StoryboardConfig,
-        source_type: Literal["book", "topic", "content"],
-        book_info: Optional[BookInfo] = None,
+        source_type: Literal["topic", "content"],
+        content_metadata: Optional[ContentMetadata] = None,
         topic: Optional[str] = None,
         content: Optional[str] = None,
     ) -> List[str]:
@@ -47,8 +45,8 @@ class NarrationGeneratorService:
         
         Args:
             config: Storyboard configuration
-            source_type: Type of content source ("book", "topic", or "content")
-            book_info: Book information (required if source_type="book")
+            source_type: Type of content source ("topic" or "content")
+            content_metadata: Content metadata (optional, not currently used)
             topic: Topic/theme (required if source_type="topic")
             content: User-provided content (required if source_type="content")
             
@@ -60,13 +58,6 @@ class NarrationGeneratorService:
             json.JSONDecodeError: If unable to parse LLM response as JSON
             
         Examples:
-            # Generate from book
-            >>> narrations = await service.generate_narrations(
-            ...     config=config,
-            ...     source_type="book",
-            ...     book_info=book_info
-            ... )
-            
             # Generate from topic
             >>> narrations = await service.generate_narrations(
             ...     config=config,
@@ -82,18 +73,7 @@ class NarrationGeneratorService:
             ... )
         """
         # 1. Build prompt based on source_type
-        if source_type == "book":
-            if book_info is None:
-                raise ValueError("book_info is required when source_type='book'")
-            logger.info(f"Generating book review narrations for: {book_info.title}")
-            prompt = build_book_narration_prompt(
-                book_info=book_info,
-                n_storyboard=config.n_storyboard,
-                min_words=config.min_narration_words,
-                max_words=config.max_narration_words
-            )
-        
-        elif source_type == "topic":
+        if source_type == "topic":
             if topic is None:
                 raise ValueError("topic is required when source_type='topic'")
             logger.info(f"Generating topic narrations for: {topic}")

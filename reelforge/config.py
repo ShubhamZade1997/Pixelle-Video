@@ -75,11 +75,6 @@ def _get_default_config() -> dict[str, Any]:
             "comfykit": {
                 "comfyui_url": "http://127.0.0.1:8188"
             }
-        },
-        "book_fetcher": {
-            "default": "google",
-            "google": None,
-            "douban": None
         }
     }
 

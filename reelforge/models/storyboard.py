@@ -55,26 +55,26 @@ class StoryboardFrame:
 
 
 @dataclass
-class BookInfo:
-    """Book information for visual display and narration generation"""
-    title: str                                 # Book title
-    author: Optional[str] = None               # Author
+class ContentMetadata:
+    """Content metadata for visual display and narration generation"""
+    title: str                                 # Content title
+    author: Optional[str] = None               # Author/creator
     subtitle: Optional[str] = None             # Subtitle
     genre: Optional[str] = None                # Genre/category
-    summary: Optional[str] = None              # Book summary
+    summary: Optional[str] = None              # Content summary
     publication_year: Optional[str] = None     # Publication year
-    cover_url: Optional[str] = None            # Cover image URL
+    cover_url: Optional[str] = None            # Cover/thumbnail image URL
 
 
 @dataclass
 class Storyboard:
     """Complete storyboard"""
-    topic: str                                 # Topic (book name or discussion topic)
+    topic: str                                 # Topic or content title
     config: StoryboardConfig                   # Configuration
     frames: List[StoryboardFrame] = field(default_factory=list)
     
-    # Book information (optional)
-    book_info: Optional[BookInfo] = None
+    # Content metadata (optional)
+    content_metadata: Optional[ContentMetadata] = None
     
     # Final output
     final_video_path: Optional[str] = None

@@ -111,10 +111,6 @@ class ConfigManager:
                 # Remove local config
                 self.config["image"]["comfykit"].pop("comfyui_url", None)
         
-        # Update Book Fetcher configuration
-        if "book_provider" in ui_values:
-            self.config["book_fetcher"]["default"] = ui_values["book_provider"]
-        
         self.save()
     
     def _is_valid_api_key(self, api_key: str) -> bool:
@@ -249,10 +245,6 @@ class ConfigManager:
         """Get list of available image providers"""
         return ["comfykit"]
     
-    def get_book_providers(self) -> List[str]:
-        """Get list of available book fetcher providers"""
-        return ["google", "douban"]
-    
     def _create_default_config(self) -> Dict[str, Any]:
         """Create default configuration"""
         return {
@@ -271,10 +263,6 @@ class ConfigManager:
                 "comfykit": {
                     "comfyui_url": "http://127.0.0.1:8188"
                 }
-            },
-            "book_fetcher": {
-                "default": "google",
-                "google": {}
             },
             "mcp_servers": []
         }
