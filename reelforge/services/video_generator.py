@@ -227,9 +227,6 @@ class VideoGeneratorService:
             created_at=datetime.now()
         )
         
-        # Store storyboard in core for access in storyboard processor
-        self.core._current_storyboard = storyboard
-        
         try:
             # ========== Step 1: Generate/Split narrations ==========
             if mode == "generate":
@@ -330,6 +327,7 @@ class VideoGeneratorService:
                 
                 processed_frame = await self.core.storyboard_processor.process_frame(
                     frame=frame,
+                    storyboard=storyboard,
                     config=config,
                     total_frames=len(storyboard.frames),
                     progress_callback=frame_progress_callback

@@ -52,9 +52,8 @@ def safe_rerun():
 # Configuration & i18n Initialization
 # ============================================================================
 
-@st.cache_resource
 def get_config_manager():
-    """Get ConfigManager instance (cached)"""
+    """Get ConfigManager instance (no caching - always fresh)"""
     manager = ConfigManager()
     manager.load_or_create_default()
     return manager
@@ -109,12 +108,12 @@ def generate_style_preview_cached(prompt_prefix: str):
 # Initialize ReelForge
 # ============================================================================
 
-@st.cache_resource
 def get_reelforge():
-    """Get initialized ReelForge instance (cached)"""
-    from reelforge.service import reelforge
+    """Get initialized ReelForge instance (no caching - always fresh)"""
+    from reelforge.service import ReelForgeCore
     
     logger.info("Initializing ReelForge...")
+    reelforge = ReelForgeCore()
     run_async(reelforge.initialize())
     logger.info("ReelForge initialized")
     

@@ -10,7 +10,7 @@ import httpx
 from loguru import logger
 
 from reelforge.models.progress import ProgressEvent
-from reelforge.models.storyboard import StoryboardFrame, StoryboardConfig
+from reelforge.models.storyboard import Storyboard, StoryboardFrame, StoryboardConfig
 from reelforge.utils.os_util import get_temp_path
 
 
@@ -29,6 +29,7 @@ class StoryboardProcessorService:
     async def process_frame(
         self,
         frame: StoryboardFrame,
+        storyboard: 'Storyboard',
         config: StoryboardConfig,
         total_frames: int = 1,
         progress_callback: Optional[Callable[[ProgressEvent], None]] = None
@@ -81,7 +82,7 @@ class StoryboardProcessorService:
                 ))
             
             # Step 3: Compose frame (add subtitle)
-            await self._step_compose_frame(frame, config)
+            await self._step_compose_frame(frame, storyboard, config)
             if progress_callback:
                 progress_callback(ProgressEvent(
                     event_type="frame_step",
@@ -157,6 +158,7 @@ class StoryboardProcessorService:
     async def _step_compose_frame(
         self,
         frame: StoryboardFrame,
+        storyboard: 'Storyboard',
         config: StoryboardConfig
     ):
         """Step 3: Compose frame with subtitle"""
@@ -167,7 +169,7 @@ class StoryboardProcessorService:
         # Choose frame generator based on template config
         if config.frame_template:
             # Use HTML template
-            composed_path = await self._compose_frame_html(frame, config, output_path)
+            composed_path = await self._compose_frame_html(frame, storyboard, config, output_path)
         else:
             # Use PIL (default)
             composed_path = await self._compose_frame_pil(frame, config, output_path)
@@ -194,6 +196,7 @@ class StoryboardProcessorService:
     async def _compose_frame_html(
         self,
         frame: StoryboardFrame,
+        storyboard: 'Storyboard',
         config: StoryboardConfig,
         output_path: str
     ) -> str:
@@ -215,8 +218,7 @@ class StoryboardProcessorService:
                     f"Built-in templates: default.html, modern.html, neon.html"
                 )
         
-        # Get storyboard for content metadata
-        storyboard = getattr(self.core, '_current_storyboard', None)
+        # Get content metadata from storyboard
         content_metadata = storyboard.content_metadata if storyboard else None
         
         # Build ext data
@@ -230,7 +232,7 @@ class StoryboardProcessorService:
         # Generate frame using HTML
         generator = HTMLFrameGenerator(str(template_path))
         composed_path = await generator.generate_frame(
-            topic=storyboard.topic if storyboard else "",
+            topic=storyboard.topic,
             text=frame.narration,
             image=frame.image_path,
             ext=ext,
