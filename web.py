@@ -14,7 +14,7 @@ from loguru import logger
 
 # Import i18n and config manager
 from reelforge.i18n import load_locales, set_language, tr, get_available_languages
-from reelforge.config_manager import ConfigManager
+from reelforge.utils.web_config import WebConfig
 from reelforge.models.progress import ProgressEvent
 
 # Setup page config (must be first)
@@ -48,10 +48,8 @@ def safe_rerun():
 # ============================================================================
 
 def get_config_manager():
-    """Get ConfigManager instance (no caching - always fresh)"""
-    manager = ConfigManager()
-    manager.load_or_create_default()
-    return manager
+    """Get WebConfig instance (no caching - always fresh)"""
+    return WebConfig()
 
 
 def init_i18n():
@@ -129,7 +127,7 @@ def init_session_state():
 # System Configuration (Required)
 # ============================================================================
 
-def render_advanced_settings(config_manager: ConfigManager):
+def render_advanced_settings(config_manager: WebConfig):
     """Render system configuration (required) with 2-column layout"""
     # Check if system is configured
     is_configured = config_manager.validate()
@@ -237,8 +235,8 @@ def render_advanced_settings(config_manager: ConfigManager):
             with st.container(border=True):
                 st.markdown(f"**{tr('settings.image.title')}**")
                 
-                # Get current configuration (flat structure)
-                image_config = config_manager.config.get("image", {})
+                # Get current configuration
+                image_config = config_manager.get_image_config()
                 
                 # Local/Self-hosted ComfyUI configuration
                 st.markdown(f"**{tr('settings.image.local_title')}**")
@@ -282,16 +280,15 @@ def render_advanced_settings(config_manager: ConfigManager):
         with col1:
             if st.button(tr("btn.save_config"), use_container_width=True, key="save_config_btn"):
                 try:
-                    # Save LLM configuration (simple 3-field format)
+                    # Save LLM configuration
                     if llm_api_key and llm_base_url and llm_model:
                         config_manager.set_llm_config(llm_api_key, llm_base_url, llm_model)
                     
-                    # Save Image configuration (flat structure)
-                    config_manager.config["image"]["default"] = "default"
-                    if comfyui_url:
-                        config_manager.config["image"]["comfyui_url"] = comfyui_url
-                    if runninghub_api_key:
-                        config_manager.config["image"]["runninghub_api_key"] = runninghub_api_key
+                    # Save Image configuration
+                    config_manager.set_image_config(
+                        comfyui_url=comfyui_url if comfyui_url else None,
+                        runninghub_api_key=runninghub_api_key if runninghub_api_key else None
+                    )
                     
                     # Save to file
                     config_manager.save()
@@ -303,7 +300,17 @@ def render_advanced_settings(config_manager: ConfigManager):
         
         with col2:
             if st.button(tr("btn.reset_config"), use_container_width=True, key="reset_config_btn"):
-                config_manager.config = config_manager._create_default_config()
+                # Reset to default by creating new config
+                config_manager.config = {
+                    "project_name": "ReelForge",
+                    "llm": {"api_key": "", "base_url": "", "model": ""},
+                    "tts": {"default_workflow": "edge"},
+                    "image": {
+                        "comfyui_url": "http://127.0.0.1:8188",
+                        "runninghub_api_key": "",
+                        "prompt_prefix": "Pure white background, minimalist illustration, matchstick figure style, black and white line drawing, simple clean lines"
+                    }
+                }
                 config_manager.save()
                 st.success(tr("status.config_reset"))
                 safe_rerun()
@@ -539,18 +546,15 @@ def main():
                 workflow_files if workflow_files else ["image_default.json"],
                 index=default_workflow_index,
                 label_visibility="collapsed",
-                key="image_preset_select"
+                key="image_workflow_select"
             )
-            
-            # Extract preset name from filename: "image_default.json" -> "default"
-            image_preset = workflow_filename.replace("image_", "").replace(".json", "") if workflow_filename else None
             
             
             # 2. Prompt prefix input
             st.caption(tr("style.prompt_prefix"))
             
             # Get current prompt_prefix from config
-            image_config = config_manager.config.get("image", {})
+            image_config = config_manager.get_image_config()
             current_prefix = image_config.get("prompt_prefix", "")
             
             # Prompt prefix input (temporary, not saved to config)
@@ -687,7 +691,7 @@ def main():
                         title=title if title else None,
                         n_scenes=n_scenes,
                         voice_id=voice_id,
-                        image_preset=image_preset,  # Pass image_preset
+                        image_workflow=workflow_filename,  # Pass image workflow filename
                         frame_template=frame_template,
                         prompt_prefix=prompt_prefix,  # Pass prompt_prefix
                         bgm_path=bgm_path,

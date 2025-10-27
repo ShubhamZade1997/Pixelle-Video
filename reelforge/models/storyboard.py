@@ -27,7 +27,7 @@ class StoryboardConfig:
     # Image parameters
     image_width: int = 1024
     image_height: int = 1024
-    image_preset: Optional[str] = None         # Image workflow preset (None = use default)
+    image_workflow: Optional[str] = None       # Image workflow filename (None = use default)
     
     # Frame template
     frame_template: Optional[str] = None       # HTML template name or path (None = use PIL)

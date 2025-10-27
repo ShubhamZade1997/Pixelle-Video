@@ -145,7 +145,7 @@ class StoryboardProcessorService:
         # Call Image generation (with optional preset)
         image_url = await self.core.image(
             prompt=frame.image_prompt,
-            preset=config.image_preset,  # Pass preset from config (None = use default)
+            workflow=config.image_workflow,  # Pass workflow from config (None = use default)
             width=config.image_width,
             height=config.image_height
         )

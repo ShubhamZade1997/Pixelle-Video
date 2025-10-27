@@ -66,7 +66,7 @@ class VideoGeneratorService:
         # === Image Parameters ===
         image_width: int = 1024,
         image_height: int = 1024,
-        image_preset: Optional[str] = None,
+        image_workflow: Optional[str] = None,
         
         # === Video Parameters ===
         video_width: int = 1080,
@@ -121,7 +121,7 @@ class VideoGeneratorService:
             
             image_width: Generated image width (default 1024)
             image_height: Generated image height (default 1024)
-            image_preset: Image workflow preset (e.g., "flux", "sdxl", None = use default)
+            image_workflow: Image workflow filename (e.g., "image_flux.json", None = use default)
             
             video_width: Final video width (default 1080)
             video_height: Final video height (default 1920)
@@ -215,7 +215,7 @@ class VideoGeneratorService:
             voice_id=voice_id,
             image_width=image_width,
             image_height=image_height,
-            image_preset=image_preset,
+            image_workflow=image_workflow,
             frame_template=frame_template
         )
         
