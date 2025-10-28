@@ -2,8 +2,15 @@
 ReelForge FastAPI Application
 
 Main FastAPI app with all routers and middleware.
+
+Run this script to start the FastAPI server:
+    uv run python api/app.py
+    
+Or with custom settings:
+    uv run python api/app.py --host 0.0.0.0 --port 8080 --reload
 """
 
+import argparse
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -124,10 +131,32 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
     
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Start ReelForge API Server")
+    parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")
+    parser.add_argument("--port", type=int, default=8000, help="Port to bind to")
+    parser.add_argument("--reload", action="store_true", help="Enable auto-reload")
+    
+    args = parser.parse_args()
+    
+    # Print startup banner
+    print(f"""
+╔══════════════════════════════════════════════════════════════╗
+║                    ReelForge API Server                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+Starting server at http://{args.host}:{args.port}
+API Docs: http://{args.host}:{args.port}/docs
+ReDoc: http://{args.host}:{args.port}/redoc
+
+Press Ctrl+C to stop the server
+""")
+    
+    # Start server
     uvicorn.run(
         "api.app:app",
-        host=api_config.host,
-        port=api_config.port,
-        reload=api_config.reload,
+        host=args.host,
+        port=args.port,
+        reload=args.reload,
     )
 

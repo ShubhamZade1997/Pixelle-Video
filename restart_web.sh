@@ -29,7 +29,7 @@ fi
 
 # Start Streamlit in background with nohup
 echo "🚀 Starting ReelForge Web UI in background..."
-nohup uv run streamlit run web.py --server.port $PORT > nohup.out 2>&1 &
+nohup uv run streamlit run web/app.py --server.port $PORT > nohup.out 2>&1 &
 
 # Wait a moment and check if the process started
 sleep 2

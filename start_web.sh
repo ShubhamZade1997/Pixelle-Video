@@ -15,5 +15,5 @@ if [ ! -f config.yaml ]; then
 fi
 
 # Start Streamlit
-uv run streamlit run web.py
+uv run streamlit run web/app.py
 
