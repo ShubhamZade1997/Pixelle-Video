@@ -54,7 +54,9 @@ class VideoGeneratorService:
         
         # === Basic Config ===
         n_scenes: int = 5,  # Only used in generate mode; ignored in fixed mode
-        voice_id: str = "zh-CN-YunjianNeural",
+        voice_id: str = "[Chinese] zh-CN Yunjian",
+        tts_workflow: Optional[str] = None,
+        tts_speed: float = 1.2,
         output_path: Optional[str] = None,
         
         # === LLM Parameters ===
@@ -111,7 +113,9 @@ class VideoGeneratorService:
             n_scenes: Number of storyboard scenes (default 5)
                       Only effective in generate mode; ignored in fixed mode
             
-            voice_id: TTS voice ID (default "zh-CN-YunjianNeural")
+            voice_id: TTS voice ID (default "[Chinese] zh-CN Yunjian")
+            tts_workflow: TTS workflow filename (e.g., "tts_edge.json", None = use default)
+            tts_speed: TTS speed multiplier (1.0 = normal, 1.2 = 20% faster, default 1.2)
             output_path: Output video path (auto-generated if None)
             
             min_narration_words: Min narration length (generate mode only)
@@ -219,6 +223,8 @@ class VideoGeneratorService:
             video_height=video_height,
             video_fps=video_fps,
             voice_id=voice_id,
+            tts_workflow=tts_workflow,
+            tts_speed=tts_speed,
             image_width=image_width,
             image_height=image_height,
             image_workflow=image_workflow,
@@ -259,7 +265,8 @@ class VideoGeneratorService:
             # Override prompt_prefix if provided (temporarily modify config)
             original_prefix = None
             if prompt_prefix is not None:
-                image_config = self.core.config.get("image", {})
+                # Fix: image config is under comfyui.image, not directly under config
+                image_config = self.core.config.get("comfyui", {}).get("image", {})
                 original_prefix = image_config.get("prompt_prefix")
                 image_config["prompt_prefix"] = prompt_prefix
                 logger.info(f"Using custom prompt_prefix: '{prompt_prefix}'")

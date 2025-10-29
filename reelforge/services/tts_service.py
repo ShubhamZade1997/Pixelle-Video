@@ -52,8 +52,8 @@ class TTSService(ComfyBaseService):
         comfyui_url: Optional[str] = None,
         runninghub_api_key: Optional[str] = None,
         # TTS parameters
-        voice: Optional[str] = None,
-        speed: float = 1.0,
+        voice: str = "[Chinese] zh-CN Yunjian",
+        speed: float = 1.2,
         # Output path
         output_path: Optional[str] = None,
         **params
@@ -88,7 +88,7 @@ class TTSService(ComfyBaseService):
             audio_path = await reelforge.tts(
                 text="Hello",
                 workflow="tts_edge.json",
-                voice="zh-CN-XiaoxiaoNeural",
+                voice="[Chinese] zh-CN Xiaoxiao",
                 speed=1.2
             )
             

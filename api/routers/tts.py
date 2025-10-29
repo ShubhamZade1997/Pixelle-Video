@@ -23,7 +23,7 @@ async def tts_synthesize(
     Convert text to speech audio.
     
     - **text**: Text to synthesize
-    - **voice_id**: Voice ID (e.g., 'zh-CN-YunjianNeural', 'en-US-AriaNeural')
+    - **voice_id**: Voice ID (e.g., '[Chinese] zh-CN Yunjian', '[English] en-US Aria')
     
     Returns path to generated audio file and duration.
     """

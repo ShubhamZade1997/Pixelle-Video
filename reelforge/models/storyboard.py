@@ -26,7 +26,9 @@ class StoryboardConfig:
     video_fps: int = 30                        # Frame rate
     
     # Audio parameters
-    voice_id: str = "zh-CN-YunjianNeural"     # Default voice
+    voice_id: str = "[Chinese] zh-CN Yunjian"     # Default voice
+    tts_workflow: Optional[str] = None         # TTS workflow filename (None = use default)
+    tts_speed: float = 1.2                     # TTS speed multiplier (1.0 = normal, >1.0 = faster)
     
     # Image parameters
     image_width: int = 1024

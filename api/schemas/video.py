@@ -23,7 +23,7 @@ class VideoGenerateRequest(BaseModel):
     
     # === Basic Config ===
     n_scenes: int = Field(5, ge=1, le=20, description="Number of scenes (generate mode only)")
-    voice_id: str = Field("zh-CN-YunjianNeural", description="TTS voice ID")
+    voice_id: str = Field("[Chinese] zh-CN Yunjian", description="TTS voice ID")
     
     # === LLM Parameters ===
     min_narration_words: int = Field(5, ge=1, le=100, description="Min narration words")
@@ -57,7 +57,7 @@ class VideoGenerateRequest(BaseModel):
                 "text": "Atomic Habits teaches us that small changes compound over time to produce remarkable results.",
                 "mode": "generate",
                 "n_scenes": 5,
-                "voice_id": "zh-CN-YunjianNeural",
+                "voice_id": "[Chinese] zh-CN Yunjian",
                 "title": "The Power of Atomic Habits"
             }
         }

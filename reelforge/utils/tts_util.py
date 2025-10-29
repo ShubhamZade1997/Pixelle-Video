@@ -31,7 +31,7 @@ _request_semaphore = asyncio.Semaphore(_MAX_CONCURRENT_REQUESTS)
 
 async def edge_tts(
     text: str,
-    voice: str = "zh-CN-YunjianNeural",
+    voice: str = "[Chinese] zh-CN Yunjian",
     rate: str = "+0%",
     volume: str = "+0%",
     pitch: str = "+0Hz",
@@ -53,7 +53,7 @@ async def edge_tts(
     
     Args:
         text: Text to convert to speech
-        voice: Voice ID (e.g., zh-CN-YunjianNeural, en-US-JennyNeural)
+        voice: Voice ID (e.g., [Chinese] zh-CN Yunjian, [English] en-US Jenny)
         rate: Speech rate (e.g., +0%, +50%, -20%)
         volume: Speech volume (e.g., +0%, +50%, -20%)
         pitch: Speech pitch (e.g., +0Hz, +10Hz, -5Hz)
@@ -65,20 +65,20 @@ async def edge_tts(
         Audio data as bytes (MP3 format)
     
     Popular Chinese voices:
-    - zh-CN-YunjianNeural (male, default)
-    - zh-CN-XiaoxiaoNeural (female)
-    - zh-CN-YunxiNeural (male)
-    - zh-CN-XiaoyiNeural (female)
+    - [Chinese] zh-CN Yunjian (male, default)
+    - [Chinese] zh-CN Xiaoxiao (female)
+    - [Chinese] zh-CN Yunxi (male)
+    - [Chinese] zh-CN Xiaoyi (female)
     
     Popular English voices:
-    - en-US-JennyNeural (female)
-    - en-US-GuyNeural (male)
-    - en-GB-SoniaNeural (female, British)
+    - [English] en-US Jenny (female)
+    - [English] en-US Guy (male)
+    - [English] en-GB Sonia (female, British)
     
     Example:
         audio_bytes = await edge_tts(
             text="你好，世界！",
-            voice="zh-CN-YunjianNeural",
+            voice="[Chinese] zh-CN Yunjian",
             rate="+20%"
         )
     """
@@ -235,11 +235,11 @@ async def list_voices(locale: str = None, retry_count: int = _RETRY_COUNT, retry
     Example:
         # List all voices
         voices = await list_voices()
-        # Returns: ['zh-CN-YunjianNeural', 'zh-CN-XiaoxiaoNeural', ...]
+        # Returns: ['[Chinese] zh-CN Yunjian', '[Chinese] zh-CN Xiaoxiao', ...]
         
         # List Chinese voices only
         voices = await list_voices(locale="zh-CN")
-        # Returns: ['zh-CN-YunjianNeural', 'zh-CN-XiaoxiaoNeural', ...]
+        # Returns: ['[Chinese] zh-CN Yunjian', '[Chinese] zh-CN Xiaoxiao', ...]
     """
     logger.debug(f"Fetching Edge TTS voices, locale filter: {locale}, retry_count: {retry_count}")
     

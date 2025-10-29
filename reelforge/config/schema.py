@@ -15,16 +15,12 @@ class LLMConfig(BaseModel):
 
 class TTSSubConfig(BaseModel):
     """TTS-specific configuration (under comfyui.tts)"""
-    model_config = {"populate_by_name": True}  # Allow both field name and alias
-    
-    default_workflow: str = Field(default=None, description="Default TTS workflow (required, no fallback)", alias="default")
+    default_workflow: str = Field(default=None, description="Default TTS workflow (required, no fallback)")
 
 
 class ImageSubConfig(BaseModel):
     """Image-specific configuration (under comfyui.image)"""
-    model_config = {"populate_by_name": True}  # Allow both field name and alias
-    
-    default_workflow: str = Field(default=None, description="Default image workflow (required, no fallback)", alias="default")
+    default_workflow: str = Field(default=None, description="Default image workflow (required, no fallback)")
     prompt_prefix: str = Field(
         default="Pure white background, minimalist illustration, matchstick figure style, black and white line drawing, simple clean lines",
         description="Prompt prefix for all image generation"

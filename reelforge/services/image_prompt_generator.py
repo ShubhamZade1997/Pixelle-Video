@@ -116,8 +116,8 @@ class ImagePromptGeneratorService:
         # 5. Apply prompt prefix to each prompt
         from reelforge.utils.prompt_helper import build_image_prompt
         
-        # Get prompt prefix from config
-        image_config = self.core.config.get("image", {})
+        # Get prompt prefix from config (fix: correct path is comfyui.image.prompt_prefix)
+        image_config = self.core.config.get("comfyui", {}).get("image", {})
         prompt_prefix = image_config.get("prompt_prefix", "")
         
         # Apply prefix to each base prompt

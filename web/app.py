@@ -459,7 +459,7 @@ def main():
             else:
                 tts_workflow_key = "selfhost/tts_edge.json"  # fallback
             
-            # TTS preview expander (similar to image preview)
+            # TTS preview expander (simplified, uses default voice and speed)
             with st.expander(tr("tts.preview_title"), expanded=False):
                 # Preview text input
                 preview_text = st.text_input(
@@ -473,7 +473,7 @@ def main():
                 if st.button(tr("tts.preview_button"), key="preview_tts", use_container_width=True):
                     with st.spinner(tr("tts.previewing")):
                         try:
-                            # Generate preview audio using selected workflow
+                            # Generate preview audio using selected workflow (use default voice and speed)
                             audio_path = run_async(reelforge.tts(
                                 text=preview_text,
                                 workflow=tts_workflow_key

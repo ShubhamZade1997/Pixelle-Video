@@ -124,11 +124,12 @@ class FrameProcessor:
         from reelforge.utils.os_util import get_task_frame_path
         output_path = get_task_frame_path(config.task_id, frame.index, "audio")
         
-        # Call TTS with specific output path
+        # Call TTS with specific output path and workflow
         audio_path = await self.core.tts(
             text=frame.narration,
+            workflow=config.tts_workflow,  # Use workflow from config
             voice=config.voice_id,
-            rate="+20%",
+            speed=config.tts_speed,  # Use speed (not rate) from config
             output_path=output_path,
         )
         
