@@ -44,7 +44,7 @@
     
     "style.workflow": "工作流选择",
     "style.workflow_what": "决定视频中每帧插图的生成方式和效果（如使用 FLUX、SD 等模型）",
-    "style.workflow_how": "将 image_xxx.json 工作流文件放入 workflows/selfhost/（本地 ComfyUI）或 workflows/runninghub/（云端）文件夹",
+    "style.workflow_how": "将导出的 image_xxx.json 工作流文件（API格式）放入 workflows/selfhost/（本地 ComfyUI）或 workflows/runninghub/（云端）文件夹",
     "style.image_size": "图片尺寸",
     "style.image_width": "宽度",
     "style.image_height": "高度",
@@ -211,7 +211,7 @@
     
     "tts.selector": "工作流选择",
     "tts.what": "将旁白文本转换为真人般的自然语音（部分工作流支持参考音频克隆声音）",
-    "tts.how": "将 tts_xxx.json 工作流文件放入 workflows/selfhost/（本地 ComfyUI）或 workflows/runninghub/（云端）文件夹",
+    "tts.how": "将导出的 tts_xxx.json 工作流文件（API格式）放入 workflows/selfhost/（本地 ComfyUI）或 workflows/runninghub/（云端）文件夹",
     "tts.ref_audio": "参考音频",
     "tts.ref_audio_help": "上传音频文件用于声音克隆（仅部分工作流支持）",
     "tts.preview_title": "预览 TTS",

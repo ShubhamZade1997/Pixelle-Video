@@ -44,7 +44,7 @@
     
     "style.workflow": "Workflow Selection",
     "style.workflow_what": "Determines how each frame's illustration is generated and its effect (e.g., using FLUX, SD models)",
-    "style.workflow_how": "Place image_xxx.json workflow files in workflows/selfhost/ (local ComfyUI) or workflows/runninghub/ (cloud) folder",
+    "style.workflow_how": "Place the exported image_xxx.json workflow file(API format) into the workflows/selfhost/ folder (for local ComfyUI) or the workflows/runninghub/ folder (for cloud)",
     "style.image_size": "Image Size",
     "style.image_width": "Width",
     "style.image_height": "Height",
@@ -211,7 +211,7 @@
     
     "tts.selector": "Workflow Selection",
     "tts.what": "Converts narration text to natural human-like speech (some workflows support reference audio for voice cloning)",
-    "tts.how": "Place tts_xxx.json workflow files in workflows/selfhost/ (local ComfyUI) or workflows/runninghub/ (cloud) folder",
+    "tts.how": "Place the exported tts_xxx.json workflow file(API format) into the workflows/selfhost/ folder (for local ComfyUI) or the workflows/runninghub/ folder (for cloud)",
     "tts.ref_audio": "Reference Audio",
     "tts.ref_audio_help": "Upload audio file for voice cloning (only supported by some workflows)",
     "tts.preview_title": "Preview TTS",
