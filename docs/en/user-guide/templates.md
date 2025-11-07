@@ -6,7 +6,151 @@ How to create custom video templates.
 
 ## Template Introduction
 
-Video templates use HTML to define the layout and style of video frames.
+Video templates use HTML to define the layout and style of video frames. Pixelle-Video provides multiple preset templates covering different video dimensions and style requirements.
+
+---
+
+## Built-in Template Preview
+
+### Portrait Templates (1080x1920)
+
+Suitable for TikTok, Kuaishou, Xiaohongshu, and other short video platforms.
+
+<div class="grid cards" markdown>
+
+-   **Blur Card**
+
+    ---
+
+    ![blur_card](../../images/1080x1920/blur_card.png)
+    
+    Blurred background card style, suitable for graphic content display
+
+-   **Cartoon**
+
+    ---
+
+    ![cartoon](../../images/1080x1920/cartoon.png)
+    
+    Cartoon style, suitable for light and lively content
+
+-   **Default**
+
+    ---
+
+    ![default](../../images/1080x1920/default.jpg)
+    
+    Default template, simple and versatile
+
+-   **Elegant**
+
+    ---
+
+    ![elegant](../../images/1080x1920/elegant.jpg)
+    
+    Elegant style, suitable for artistic and intellectual content
+
+-   **Fashion Vintage**
+
+    ---
+
+    ![fashion_vintage](../../images/1080x1920/fashion_vintage.jpg)
+    
+    Retro fashion style, suitable for nostalgic themes
+
+-   **Life Insights**
+
+    ---
+
+    ![life_insights](../../images/1080x1920/life_insights.jpg)
+    
+    Life insight style, suitable for inspirational content
+
+-   **Modern**
+
+    ---
+
+    ![modern](../../images/1080x1920/modern.jpg)
+    
+    Modern minimalist style, suitable for business and tech content
+
+-   **Neon**
+
+    ---
+
+    ![neon](../../images/1080x1920/neon.jpg)
+    
+    Neon style, suitable for fashion and trendy content
+
+-   **Psychology Card**
+
+    ---
+
+    ![psychology_card](../../images/1080x1920/psychology_card.jpg)
+    
+    Psychology card style, suitable for knowledge popularization
+
+-   **Purple**
+
+    ---
+
+    ![purple](../../images/1080x1920/purple.jpg)
+    
+    Purple theme, suitable for dreamy and mysterious styles
+
+-   **Simple**
+
+    ---
+
+    ![simple](../../images/1080x1920/simple.png)
+    
+    Minimalist style, highlighting the content itself
+
+</div>
+
+---
+
+### Landscape Templates (1920x1080)
+
+Suitable for YouTube, Bilibili, and other video platforms.
+
+<div class="grid cards" markdown>
+
+-   **Ultrawide Minimal**
+
+    ---
+
+    ![ultrawide_minimal](../../images/1920x1080/ultrawide_minimal.jpg)
+    
+    Ultrawide minimalist style, suitable for desktop viewing
+
+-   **Wide Darktech**
+
+    ---
+
+    ![wide_darktech](../../images/1920x1080/wide_darktech.jpg)
+    
+    Dark tech style, suitable for technology and gaming content
+
+</div>
+
+---
+
+### Square Templates (1080x1080)
+
+Suitable for Instagram, WeChat Moments, and other platforms.
+
+<div class="grid cards" markdown>
+
+-   **Minimal Framed**
+
+    ---
+
+    ![minimal_framed](../../images/1080x1080/minimal_framed.jpg)
+    
+    Minimalist framed style, suitable for social media sharing
+
+</div>
 
 ---
 
@@ -16,33 +160,99 @@ Templates are located in the `templates/` directory, grouped by size:
 
 ```
 templates/
-├── 1080x1920/  # Portrait
-├── 1920x1080/  # Landscape
-└── 1080x1080/  # Square
+├── 1080x1920/  # Portrait (11 templates)
+├── 1920x1080/  # Landscape (2 templates)
+└── 1080x1080/  # Square (1 template)
 ```
 
 ---
 
-## Creating Templates
+## Creating Custom Templates
 
-1. Copy an existing template file
-2. Modify HTML and CSS
-3. Save to the corresponding size directory
-4. Select and use in Web interface
+### Steps
+
+1. Copy an existing template file from the `templates/` directory
+2. Modify HTML and CSS styles
+3. Save to the corresponding size directory with `.html` extension
+4. Use the new template name in configuration or Web interface
+
+### Template Variables
+
+Templates support the following Jinja2 variables:
+
+- `{{ title }}` - Video title (optional)
+- `{{ text }}` - Current scene text content
+- `{{ image }}` - Current scene image (if any)
+
+### Example Template
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            width: 1080px;
+            height: 1920px;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .content {
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+        .text {
+            font-size: 48px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="text">{{ text }}</div>
+    </div>
+</body>
+</html>
+```
 
 ---
 
-## Template Variables
+## Template Development Tips
 
-Templates support the following variables:
+### 1. Responsive Sizing
 
-- `{{ title }}` - Video title
-- `{{ text }}` - Scene text
-- `{{ image }}` - Scene image
+Ensure the template's `body` size matches the target video dimensions:
+
+- Portrait: `width: 1080px; height: 1920px;`
+- Landscape: `width: 1920px; height: 1080px;`
+- Square: `width: 1080px; height: 1080px;`
+
+### 2. Text Typography
+
+- Use appropriate font sizes and line heights for readability
+- Add shadows or backgrounds to text for better contrast
+- Control text length to avoid overflow
+
+### 3. Image Handling
+
+- Use `object-fit: cover` to ensure image filling
+- Add gradients or overlay layers to improve text readability
+- Consider fallback solutions for image loading failures
+
+### 4. Performance Optimization
+
+- Avoid overly complex CSS animations
+- Optimize background image sizes
+- Use system fonts or web-safe fonts
 
 ---
 
 ## More Information
 
-Detailed template development guide coming soon.
+For template development questions, feel free to ask in [GitHub Issues](https://github.com/AIDC-AI/Pixelle-Video/issues).
 
