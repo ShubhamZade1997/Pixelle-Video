@@ -61,15 +61,8 @@ Pixelle-Video 采用模块化设计，整个视频生成流程清晰简洁：
 
 #### 安装 uv
 
-**macOS / Linux**
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-**Windows**
-```powershell
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
+请访问 uv 官方文档查看适合你系统的安装方法：  
+👉 **[uv 安装指南](https://docs.astral.sh/uv/getting-started/installation/)**
 
 安装完成后，在终端中运行 `uv --version` 验证安装成功。
 
