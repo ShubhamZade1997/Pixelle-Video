@@ -106,7 +106,7 @@ Suitable for TikTok, Kuaishou, Xiaohongshu, and other short video platforms.
     
     Minimalist style, highlighting the content itself
 
-    **Satirical Cartoon**
+-   **Satirical Cartoon**
 
     ---
 
@@ -114,7 +114,7 @@ Suitable for TikTok, Kuaishou, Xiaohongshu, and other short video platforms.
     
     80s satirical cartoon style for spiritual tales
 
-    **Simple Black Background**
+-   **Simple Black Background**
 
     ---
 
@@ -122,7 +122,7 @@ Suitable for TikTok, Kuaishou, Xiaohongshu, and other short video platforms.
     
     Simple black background, suitable for inspirational content
 
-    **Simple Line Drawing**
+-   **Simple Line Drawing**
 
     ---
 
