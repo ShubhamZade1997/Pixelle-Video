@@ -106,6 +106,29 @@ Suitable for TikTok, Kuaishou, Xiaohongshu, and other short video platforms.
     
     Minimalist style, highlighting the content itself
 
+    **Satirical Cartoon**
+
+    ---
+
+    ![satirical_cartoon](../../images/1080x1920/satirical_cartoon.png)
+    
+    80s satirical cartoon style for spiritual tales
+
+    **Simple Black Background**
+
+    ---
+
+    ![simple_black](../../images/1080x1920/simple_black.png)
+    
+    Simple black background, suitable for inspirational content
+
+    **Simple Line Drawing**
+
+    ---
+
+    ![simple_line_drawing](../../images/1080x1920/simple_line_drawing.png)
+    
+    Simple line drawing style for cognitive growth content
 </div>
 
 ---

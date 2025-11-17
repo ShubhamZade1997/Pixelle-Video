@@ -106,6 +106,29 @@
     
     极简风格，突出内容本身
 
+    **Satirical Cartoon**
+
+    ---
+
+    ![satirical_cartoon](../../images/1080x1920/satirical_cartoon.png)
+    
+    80年代讽刺漫画风格，适合精神类小故事
+
+    **Simple Black Background**
+
+    ---
+
+    ![simple_black](../../images/1080x1920/simple_black.png)
+    
+    极简黑色背景，适合心灵鸡汤类内容
+
+    **Simple Line Drawing**
+
+    ---
+
+    ![simple_line_drawing](../../images/1080x1920/simple_line_drawing.png)
+    
+    简笔画，适合认知成长类内容
 </div>
 
 ---
