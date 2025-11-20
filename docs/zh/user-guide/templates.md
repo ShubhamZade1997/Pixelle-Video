@@ -129,7 +129,6 @@
     ![simple_line_drawing](../../images/1080x1920/simple_line_drawing.jpg)
     
     简笔画，适合认知成长类内容
-</div>
 
 -   **Book**
 
@@ -154,6 +153,8 @@
     ![excerpt](../../images/1080x1920/excerpt.jpg)
     
     图文摘抄，适合图文摘抄，名人名言
+</div>
+
 ---
 
 ### 横屏模板 (1920x1080)
