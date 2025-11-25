@@ -11,6 +11,8 @@
   <a href="https://github.com/AIDC-AI/Pixelle-Video/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AIDC-AI/Pixelle-Video.svg" alt="License"></a>
 </p>
 
+https://github.com/user-attachments/assets/a42e7457-fcc8-40da-83fc-784c45a8b95d
+
 <br/>
 
 只需输入一个 **主题**，Pixelle-Video 就能自动完成：
