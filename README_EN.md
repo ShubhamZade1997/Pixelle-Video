@@ -72,36 +72,53 @@ Here are actual cases generated using Pixelle-Video, showcasing video effects wi
 <table>
 <tr>
 <td width="33%">
-<h3>🏛️ Historical & Cultural - Fixed Frame</h3>
-<video src="https://github.com/user-attachments/assets/56e0a018-fa99-47eb-a97f-fc2fa8915724" controls width="100%"></video>
-<p align="center"><b>Records of the Grand Historian</b></p>
+<h3>🌄 Documentary & Lifestyle – Default Template</h3>
+<video src="https://github.com/user-attachments/assets/e6716c1d-78de-453d-84c2-10873c8c595f" controls width="100%"></video>
+<p align="center"><b>The Scenery Along the Journey</b></p>
 </td>
 <td width="33%">
-<h3>💡 Personal Growth - Voice Clone</h3>
-<video src="https://github.com/user-attachments/assets/1bad9a49-df83-4905-9cc8-9a7640e9c7d8" controls width="100%"></video>
-<p align="center"><b>How to Improve Yourself</b></p>
+<h3>🔍 Cultural Deconstruction – Default Template</h3>
+<video src="https://github.com/user-attachments/assets/f5de75f6-135a-4ab4-9f5f-079f649764d5" controls width="100%"></video>
+<p align="center"><b>Santa ID</b></p>
 </td>
 <td width="33%">
-<h3>🤔 Deep Thinking - Default Template</h3>
-<video src="https://github.com/user-attachments/assets/663b705a-2aea-44bc-b266-4bb27aa255a8" controls width="100%"></video>
-<p align="center"><b>Understanding Antifragility</b></p>
+<h3>🔭 Scientific Inquiry – Default Template</h3>
+<video src="https://github.com/user-attachments/assets/ceb8b0df-8331-4e1f-88e7-db5b295a1c1d" controls width="100%"></video>
+<p align="center"><b>Why Haven’t We Found Alien Civilizations Yet?</b></p>
 </td>
 </tr>
 <tr>
 <td width="33%">
-<h3>🌅 Emotional - Voice Clone</h3>
+<h3>🌱 Personal Growth – Cloned Voice</h3>
+<video src="https://github.com/user-attachments/assets/1bad9a49-df83-4905-9cc8-9a7640e9c7d8" controls width="100%"></video>
+<p align="center"><b>How to Level Up Yourself</b></p>
+</td>
+<td width="33%">
+<h3>🧠 Deep Thinking – Default Template</h3>
+<video src="https://github.com/user-attachments/assets/663b705a-2aea-44bc-b266-4bb27aa255a8" controls width="100%"></video>
+<p align="center"><b>Understanding Antifragility</b></p>
+</td>
+<td width="33%">
+<h3>🏯 History & Culture – Static Frame</h3>
+<video src="https://github.com/user-attachments/assets/56e0a018-fa99-47eb-a97f-fc2fa8915724" controls width="100%"></video>
+<p align="center"><b>Zizhi Tongjian (Comprehensive Mirror for Aid in Governance)</b></p>
+</td>
+</tr>
+<tr>
+<td width="33%">
+<h3>☀️ Emotional Storytelling – Cloned Voice</h3>
 <video src="https://github.com/user-attachments/assets/4687df95-dd21-4a7b-b01e-f33a7b646644" controls width="100%"></video>
-<p align="center"><b>Winter Sunshine</b></p>
+<p align="center"><b>Winter Sunlight</b></p>
 </td>
 <td width="33%">
-<h3>📖 Novel Commentary - Custom Script</h3>
+<h3>📜 Novel Adaptation – Custom Script</h3>
 <video src="https://github.com/user-attachments/assets/d354465e-3fa8-40b4-93e9-61ad75ef0697" controls width="100%"></video>
-<p align="center"><b>Battle Through the Heavens</b></p>
+<p align="center"><b>Doupo Cangqiong (Battle Through the Heavens)</b></p>
 </td>
 <td width="33%">
-<h3>📚 Health & Wellness - Qwen Image Gen</h3>
+<h3>🧬 Knowledge Explainer – Qwen Image Generation</h3>
 <video src="https://github.com/user-attachments/assets/8ac21768-41ce-4d41-acdd-e3dd3eb9725a" controls width="100%"></video>
-<p align="center"><b>Health Knowledge</b></p>
+<p align="center"><b>Essential Wellness Tips</b></p>
 </td>
 </tr>
 </table>
